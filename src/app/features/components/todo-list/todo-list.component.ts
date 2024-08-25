@@ -46,7 +46,6 @@ export class TodoListComponent implements OnInit, AfterViewInit {
 
   loadData() {
     this.store.select(selectTodos).subscribe(res => {
-      console.log("getting state list component : ", res);
       this.dataSource.data = res.todos;
     })
   }

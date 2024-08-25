@@ -26,5 +26,10 @@ export const loadTodoById = createAction(
   props<{ id: string }>()
 );
 
+export const updateTodoState = createAction(
+  '[Todo] update Todo State',
+  props<{ id: string; state: "Todo" | "InProgress" | "Done" | "Cancelled" }>()
+);
+
 
 

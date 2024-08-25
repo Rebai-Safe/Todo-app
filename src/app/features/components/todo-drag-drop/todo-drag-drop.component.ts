@@ -9,7 +9,7 @@ import {TodoService} from "../../../shared/services/todo.service";
 import {ConfirmDialogComponent} from "../../../shared/components/confirm-dialog/confirm-dialog.component";
 import {Store} from "@ngrx/store";
 import {selectTodos} from "../../../core/todo.selectors";
-import {deleteTodo} from "../../../core/todo.actions";
+import {deleteTodo, updateTodoState} from "../../../core/todo.actions";
 
 @Component({
   selector: 'app-todo-drag-drop',
@@ -49,7 +49,6 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
     }
 
     const position = event.currentIndex;
-    console.log("event : ", event)
 
     switch (index) {
       case 0 :
@@ -117,8 +116,7 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
 
 
   private updateTasks(todo: Todo, state: "Todo" | "InProgress" | "Done" | "Cancelled") {
-    let index = this.tasks.indexOf(todo);
-    this.tasks[index].state = state;
+    this.store.dispatch(updateTodoState({id: todo.id, state: state}));
   }
 }
 

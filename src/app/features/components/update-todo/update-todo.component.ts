@@ -58,7 +58,7 @@ export class UpdateTodoComponent {
   }
 
   updateTodo() {
-    this.store.dispatch(updateTodo(this.todoForm.value));
-    //this.router.navigate(['/features/todo-list'])
+    this.store.dispatch(updateTodo({todo: this.todoForm.value}));
+    this.router.navigate(['/features/todo-list'])
   }
 }
