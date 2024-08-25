@@ -1,0 +1,50 @@
+@use "./../../../../assets/colors" as *;
+
+.table-container {
+  display: block;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-name, .mat-column-age {
+  min-width: 150px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.state {
+  color: white;
+  padding: 7.5px;
+  width: 89px;
+  text-align: center;
+  border-radius: 10.5px;
+}
+
+.todo {
+  background-color: $light-gray;
+}
+
+.in-progress {
+  background-color: $orange;
+}
+
+.done {
+  background-color: $green;
+}
+
+.cancelled {
+  background-color: $red;
+}
+
+
+@media (max-width: 600px) {
+  .mat-header-cell, .mat-cell {
+    padding: 8px;
+    font-size: 12px;
+  }
+}

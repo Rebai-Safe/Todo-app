@@ -1,0 +1,45 @@
+<div class="items-container">
+  <h2 class="mb-4 text-accent">New Task</h2>
+  <form [formGroup]="todoForm" class="form" (ngSubmit)="createTodo()">
+    <div class="d-flex flex-column">
+      <mat-form-field class="full-width me-2" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+
+      <mat-form-field class="full-width me-2" appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description">
+      </mat-form-field>
+
+    <mat-form-field class="full-width me-2" appearance="outline">
+      <mat-label>State</mat-label>
+      <mat-select formControlName="state">
+        <mat-option *ngFor="let state of states"
+                    [value]="state">{{ state }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+      <mat-form-field class="full-width me-2" appearance="outline">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="sdatepicker" formControlName="startDate">
+        <mat-datepicker-toggle matIconSuffix [for]="sdatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #sdatepicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="full-width me-2" appearance="outline">
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="edatepicker" formControlName="endDate">
+        <mat-datepicker-toggle matIconSuffix [for]="edatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #edatepicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit"
+            class="w-100 d-flex justify-content-center align-items-center mt-5"
+            [disabled]="!todoForm.valid">Create
+    </button>
+
+  </form>
+</div>

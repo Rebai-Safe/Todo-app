@@ -1,0 +1,44 @@
+<div class="main-container" [class.is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="toolbar">
+    <div (click)="sidenav.toggle()">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
+                 [opened]="true"
+    >
+      <mat-nav-list class="sidenav">
+        <ul class="nav nav-pills flex-column mt-4">
+          <li data-bs-toggle="collapse" data-bs-target="#sub-menu" aria-controls="sub-menu" style="font-size: 18px">
+            <i class="fa-solid fa-check me-1"></i>
+            My Tasks
+            <div class="collapse" id="sub-menu">
+              <ul>
+                <li routerLink="todo-list" style="font-size: 15px">
+                  List view
+                </li>
+                <li routerLink="todo-dragdrop" style="font-size: 15px">Drag & drop view</li>
+              </ul>
+            </div>
+          </li>
+          <li routerLink="create-todo" style="font-size: 18px">
+            <i class="fa-solid fa-plus me-1"></i>
+            New Task
+          </li>
+        </ul>
+
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="my-container">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+</div>
