@@ -6,9 +6,11 @@ import {TodoPageComponent} from "./pages/todo-page/todo-page.component";
 import {SharedModule} from "../../shared/shared.module";
 
 
+
 @NgModule({
   declarations: [
-    TodoPageComponent
+    TodoPageComponent,
+
   ],
   imports: [
     CommonModule,

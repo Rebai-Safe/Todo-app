@@ -4,10 +4,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {ActivatedRoute, Router} from "@angular/router";
 import {Todo} from "../../../../shared/model/todo";
 import {SharedModule} from "../../../../shared/shared.module";
-import {Store} from "@ngrx/store";
-import {loadTodoById} from "../../../../core/todo-store/todo.actions";
-import {updateTodo} from "../../../../core/todo-store/todo.actions";
-import {selectTodoById} from "../../../../core/todo-store/todo.selectors";
+import {TodoService} from "../../services/todo.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -27,18 +25,14 @@ export class UpdateTodoComponent {
 
 
   constructor(
-    private store: Store,
     private router: Router,
+    private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
+    private todoService: TodoService,
     private activatedRoute: ActivatedRoute) {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id != null) {
-
-      // Dispatch action to load the todo by ID
-      this.store.dispatch(loadTodoById({id}));
-
-      // Select the todo by ID
-      this.todo$ = this.store.select(selectTodoById(id));
+      this.todo$ = this.todoService.loadTodoById(id)
       this.todo$.subscribe((res: Todo) => {
         this.todoForm = this.formBuilder.group({
           id: [res.id],
@@ -53,7 +47,16 @@ export class UpdateTodoComponent {
   }
 
   updateTodo() {
-    this.store.dispatch(updateTodo({todo: this.todoForm.value}));
-    this.router.navigate(['/features/todo/todo-list'])
+    try {
+      this.todoService.updateTodo(this.todoForm.value)
+      this._snackBar.open("Task updated successfully", '', {
+        duration: 4000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      });
+      this.router.navigate(['/features/todo/todo-list'])
+    } catch {
+      console.error('error updating todo ');
+    }
   }
 }

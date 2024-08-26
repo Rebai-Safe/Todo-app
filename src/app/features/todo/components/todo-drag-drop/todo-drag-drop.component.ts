@@ -5,11 +5,11 @@ import {Todo} from "../../../../shared/model/todo";
 import {SharedModule} from "../../../../shared/shared.module";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {TodoService} from "../../../../shared/services/todo.service";
 import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
 import {Store} from "@ngrx/store";
 import {selectTodos} from "../../../../core/todo-store/todo.selectors";
 import {deleteTodo, updateTodoState} from "../../../../core/todo-store/todo.actions";
+import {TodoService} from "../../services/todo.service";
 
 @Component({
   selector: 'app-todo-drag-drop',
@@ -30,9 +30,8 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private store: Store,
-    private router: Router,
     public dialog: MatDialog,
+    private router: Router,
     private todoService: TodoService) {
   }
 
@@ -52,19 +51,19 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
 
     switch (index) {
       case 0 :
-        this.updateTasks(event.container.data[position], "Todo")
+        this.updateTaskState(event.container.data[position], "Todo")
         ;
         break;
       case 1 :
-        this.updateTasks(event.container.data[position], "InProgress");
+        this.updateTaskState(event.container.data[position], "InProgress");
         break
           ;
       case 2:
-        this.updateTasks(event.container.data[position], "Done");
+        this.updateTaskState(event.container.data[position], "Done");
         break
           ;
       case 3:
-        this.updateTasks(event.container.data[position], "Cancelled");
+        this.updateTaskState(event.container.data[position], "Cancelled");
         break
           ;
     }
@@ -76,14 +75,16 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.store.select(selectTodos).subscribe(res => {
+    this.todoService.loadTodos().subscribe(res => {
       this.tasks = res.todos;
-      if(this.tasks.length > 0){
+      if (this.tasks.length > 0) {
         this.todo = this.tasks.filter(task => task.state == "Todo");
         this.inProgress = this.tasks.filter(task => task.state == "InProgress");
         this.done = this.tasks.filter(task => task.state == "Done");
         this.cancelled = this.tasks.filter(task => task.state == "Cancelled");
       }
+    }, error => {
+      console.error('error loading todos :', error);
     })
   }
 
@@ -92,22 +93,11 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
   }
 
   deleteToDo(element: Todo) {
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '300px',
-      data: {title: "Are you sure ?", text: "Are you sure you want to delete this task ?", error: false}
-    });
-
-    dialogRef.afterClosed().subscribe((response: string) => {
-      if (response === 'YES') {
-        this.store.dispatch(deleteTodo({id: element.id }));
-      }
-    }, error => {
-      this.dialog.open(ConfirmDialogComponent, {
-        width: '300px',
-        data: {title: "Error", text: "Error occurred while proceeding", error: true}
-      });
-    })
+    try {
+      this.todoService.deleteToDo(element.id, this.dialog)
+    } catch {
+      console.error('error deleting todo ');
+    }
   }
 
   ngOnDestroy() {
@@ -115,8 +105,12 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
   }
 
 
-  private updateTasks(todo: Todo, state: "Todo" | "InProgress" | "Done" | "Cancelled") {
-    this.store.dispatch(updateTodoState({id: todo.id, state: state}));
+  private updateTaskState(todo: Todo, state: "Todo" | "InProgress" | "Done" | "Cancelled") {
+    try {
+      this.todoService.updateTodoState(todo, state)
+    } catch {
+      console.error('error updating todo ');
+    }
   }
 }
 

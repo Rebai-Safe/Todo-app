@@ -1,9 +1,5 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {take} from "rxjs";
-import {Store} from "@ngrx/store";
-import {selectTodos} from "./core/todo-store/todo.selectors";
-import {loadTodos} from "./core/todo-store/todo.actions";
-import {TodoState} from "./shared/model/todo";
+import {LocalStorageService} from "./features/todo/services/local-storage.service";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +9,7 @@ import {TodoState} from "./shared/model/todo";
 export class AppComponent implements OnInit, OnDestroy {
   title = 'todo-app';
 
-  constructor(private store: Store) {
+  constructor(private localStorageService: LocalStorageService) {
   }
 
   ngOnInit(): void {
@@ -32,32 +28,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private saveState(): void {
-    let featureState: any;
-    this.store.select(selectTodos)
-      .pipe(take(1))
-      .subscribe(state => {
-        featureState = state;
-        if (featureState) {
-          this.saveStateToLocalStorage(featureState);
-        }
-      });
-  }
-
-  private loadStateFromLocalStorage(): void {
-    const savedState = localStorage.getItem("tasks");
-    if (savedState != null) {
-      const parsedState: TodoState = JSON.parse(savedState);
-      // Dispatch an action to update the store with the saved state
-      this.store.dispatch(loadTodos({todos: parsedState.todos}));
+    try {
+      this.localStorageService.saveStateToLocalStorage()
+    } catch (error) {
+      console.error('error saving state to local storage:', error);
     }
   }
 
-  private saveStateToLocalStorage(state: any): void {
+  private loadStateFromLocalStorage(): void {
     try {
-      const serializedState = JSON.stringify(state);
-      localStorage.setItem('tasks', serializedState);
+      this.localStorageService.loadStateFromLocalStorage()
     } catch (error) {
-      console.error('Error saving state to localStorage:', error);
+      console.error('error retrieving state from local storage:', error);
     }
   }
 }

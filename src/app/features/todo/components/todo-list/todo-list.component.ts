@@ -5,12 +5,13 @@ import {Router, RouterLink} from "@angular/router";
 import {Todo} from "../../../../shared/model/todo";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
-import {TodoService} from "../../../../shared/services/todo.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Store} from "@ngrx/store";
 import {selectTodos} from "../../../../core/todo-store/todo.selectors";
 import {deleteTodo} from "../../../../core/todo-store/todo.actions";
+import {TodoService} from "../../services/todo.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-todo-list',
@@ -28,12 +29,11 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<Todo>();
 
   constructor(
-    private store: Store,
     private router: Router,
     public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private todoService: TodoService) {
   }
-
 
 
   ngAfterViewInit() {
@@ -41,11 +41,12 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
     this.loadData();
   }
 
   loadData() {
-    this.store.select(selectTodos).subscribe(res => {
+    this.todoService.loadTodos().subscribe(res => {
       this.dataSource.data = res.todos;
     })
   }
@@ -55,39 +56,23 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   }
 
   deleteToDo(element: Todo) {
-    const id = element.id;
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '300px',
-      data: {title: "Are you sure ?", text: "Are you sure you want to delete this task ?", error: false}
-    });
-
-    dialogRef.afterClosed().subscribe((response: string) => {
-      if (response === 'YES') {
-        this.store.dispatch(deleteTodo({id: element.id }));
-      }
-    }, error => {
-      this.dialog.open(ConfirmDialogComponent, {
-        width: '300px',
-        data: {title: "Error", text: "Error occurred while proceeding", error: true}
-      });
-    })
+    try {
+      this.todoService.deleteToDo(element.id, this.dialog)
+    } catch {
+      console.error('error deleting todo ');
+    }
   }
 
   getClass(state: string) {
     switch (state) {
       case 'Todo':
         return 'todo';
-        break;
       case 'InProgress':
         return 'in-progress';
-        break;
       case 'Done':
         return 'done';
-        break;
       case 'Cancelled':
         return 'cancelled';
-        break;
       default:
         return "";
     }
