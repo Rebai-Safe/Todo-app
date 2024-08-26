@@ -1,5 +1,5 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {Todo, TodoState} from "../shared/model/todo";
+import {Todo, TodoState} from "../../shared/model/todo";
 
 export const selectTodos = createFeatureSelector<TodoState>('todos');
 

@@ -1,8 +1,8 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {selectTodos} from "./core/todo.selectors";
+import {selectTodos} from "./core/ngrx/todo.selectors";
 import {take} from "rxjs";
-import {loadTodos} from "./core/todo.actions";
+import {loadTodos} from "./core/ngrx/todo.actions";
 import {Todo, TodoState} from "./shared/model/todo";
 
 @Component({

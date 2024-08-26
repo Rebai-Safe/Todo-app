@@ -1,6 +1,6 @@
 import {createReducer, on} from '@ngrx/store';
 import {createTodo, deleteTodo, loadTodos, updateTodo, updateTodoState} from './todo.actions';
-import {initialState} from "../shared/model/todo";
+import {initialState} from "../../shared/model/todo";
 
 
 const _todoReducer = createReducer(

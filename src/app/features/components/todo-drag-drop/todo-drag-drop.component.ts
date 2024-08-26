@@ -8,8 +8,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {TodoService} from "../../../shared/services/todo.service";
 import {ConfirmDialogComponent} from "../../../shared/components/confirm-dialog/confirm-dialog.component";
 import {Store} from "@ngrx/store";
-import {selectTodos} from "../../../core/todo.selectors";
-import {deleteTodo, updateTodoState} from "../../../core/todo.actions";
+import {selectTodos} from "../../../core/ngrx/todo.selectors";
+import {deleteTodo, updateTodoState} from "../../../core/ngrx/todo.actions";
 
 @Component({
   selector: 'app-todo-drag-drop',

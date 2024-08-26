@@ -7,7 +7,7 @@ import {v4 as uuidv4} from 'uuid';
 import {Todo} from "../../../shared/model/todo";
 import {TodoService} from "../../../shared/services/todo.service";
 import {Store} from "@ngrx/store";
-import {createTodo} from "../../../core/todo.actions";
+import {createTodo} from "../../../core/ngrx/todo.actions";
 
 @Component({
   selector: 'app-create-todo',

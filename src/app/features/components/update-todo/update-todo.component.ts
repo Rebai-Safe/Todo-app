@@ -12,8 +12,8 @@ import {Todo} from "../../../shared/model/todo";
 import {v4 as uuidv4} from "uuid";
 import {SharedModule} from "../../../shared/shared.module";
 import {Store} from "@ngrx/store";
-import {loadTodoById, updateTodo} from "../../../core/todo.actions";
-import {selectTodoById, selectTodos} from "../../../core/todo.selectors";
+import {loadTodoById, updateTodo} from "../../../core/ngrx/todo.actions";
+import {selectTodoById, selectTodos} from "../../../core/ngrx/todo.selectors";
 
 @Component({
   selector: 'app-update-todo',

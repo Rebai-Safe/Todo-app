@@ -1,16 +1,18 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-3">
+    <div class="todo col-md-6 col-lg-3">
       <!-- todo -->
-      <h2>To do</h2>
+      <div class="box-header">
+        To do
+      </div>
       <div
         cdkDropList
         #todoList="cdkDropList"
         [cdkDropListData]="todo"
         [cdkDropListConnectedTo]="[inProgressList, doneList, cancelledList]"
-        class="example-list"
+        class="tasks-list"
         (cdkDropListDropped)="drop($event, 0)">
-        <div class="example-box" *ngFor="let item of todo" cdkDrag>
+        <div class="task-box" *ngFor="let item of todo" cdkDrag>
           {{item.title}}
           {{item.description}}
           <div>
@@ -21,17 +23,19 @@
       </div>
     </div>
 
-    <div class="col-lg-3">
+    <div class="in-progress col-md-6 col-lg-3">
       <!-- in progress -->
-      <h2>in progress</h2>
+      <div class="box-header">
+        In progress
+      </div>
       <div
         cdkDropList
         #inProgressList="cdkDropList"
         [cdkDropListData]="inProgress"
         [cdkDropListConnectedTo]="[todoList, doneList,cancelledList]"
-        class="example-list"
+        class="tasks-list"
         (cdkDropListDropped)="drop($event, 1)">
-        <div class="example-box" *ngFor="let item of inProgress;" cdkDrag>{{item.title}}
+        <div class="task-box" *ngFor="let item of inProgress;" cdkDrag>{{item.title}}
           <div>
             <i class="fa-solid fa-trash text-danger clickable" (click)="deleteToDo(item)"></i>
             <i class="fa-solid fa-pen text-accent ms-4 clickable" (click)="goToUpdateTodo(item)"></i>
@@ -40,17 +44,19 @@
       </div>
     </div>
 
-    <div class="col-lg-3">
+    <div class="done col-md-6 col-lg-3">
       <!-- Done -->
-      <h2>Done</h2>
+      <div class="box-header">
+        Done
+      </div>
       <div
         cdkDropList
         #doneList="cdkDropList"
         [cdkDropListData]="done"
         [cdkDropListConnectedTo]="[todoList, inProgressList, cancelledList]"
-        class="example-list"
+        class="tasks-list"
         (cdkDropListDropped)="drop($event, 2)">
-        <div class="example-box" *ngFor="let item of done;" cdkDrag>{{item.title}}
+        <div class="task-box" *ngFor="let item of done;" cdkDrag>{{item.title}}
           <div>
             <i class="fa-solid fa-trash text-danger clickable" (click)="deleteToDo(item)"></i>
             <i class="fa-solid fa-pen text-accent ms-4 clickable" (click)="goToUpdateTodo(item)"></i>
@@ -59,17 +65,20 @@
       </div>
     </div>
 
-    <div class="col-lg-3">
+    <div class="cancelled col-md-6 col-lg-3">
       <!-- Cancelled -->
-      <h2>Cancelled</h2>
+      <div class="box-header">
+        Cancelled
+      </div>
+
       <div
         cdkDropList
         #cancelledList="cdkDropList"
         [cdkDropListData]="cancelled"
         [cdkDropListConnectedTo]="[todoList, inProgressList, doneList]"
-        class="example-list"
+        class="tasks-list"
         (cdkDropListDropped)="drop($event, 3)">
-        <div class="example-box" *ngFor="let item of cancelled;" cdkDrag>{{item.title}}
+        <div class="task-box" *ngFor="let item of cancelled;" cdkDrag>{{item.title}}
           <div>
             <i class="fa-solid fa-trash text-danger clickable" (click)="deleteToDo(item)"></i>
             <i class="fa-solid fa-pen text-accent ms-4 clickable" (click)="goToUpdateTodo(item)"></i>

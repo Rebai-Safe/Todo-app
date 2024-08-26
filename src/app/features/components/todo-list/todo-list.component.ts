@@ -9,8 +9,8 @@ import {TodoService} from "../../../shared/services/todo.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Store} from "@ngrx/store";
-import {selectTodos} from "../../../core/todo.selectors";
-import {deleteTodo} from "../../../core/todo.actions";
+import {selectTodos} from "../../../core/ngrx/todo.selectors";
+import {deleteTodo} from "../../../core/ngrx/todo.actions";
 
 @Component({
   selector: 'app-todo-list',
