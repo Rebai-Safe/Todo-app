@@ -1,7 +1,10 @@
 <div class="main-container" [class.is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="toolbar">
-    <div (click)="sidenav.toggle()">
+  <mat-toolbar color="primary" class="d-flex align-content-center toolbar">
+    <div class="clickable" (click)="sidenav.toggle()">
       <i class="fa-solid fa-bars"></i>
+    </div>
+    <div class="ms-3">
+      Hello, it's {{ todayDate | date: 'dd MMMM yyyy'}}
     </div>
   </mat-toolbar>
 
@@ -11,27 +14,34 @@
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"
                  [opened]="true"
     >
+      <div>
       <mat-nav-list class="sidenav">
-        <ul class="nav nav-pills flex-column mt-4">
-          <li data-bs-toggle="collapse" data-bs-target="#sub-menu" aria-controls="sub-menu" style="font-size: 18px">
+        <ul class="nav nav-pills flex-column  mt-4">
+          <li class="clickable" data-bs-toggle="collapse" data-bs-target="#sub-menu" aria-controls="sub-menu" style="font-size: 18px">
             <i class="fa-solid fa-check me-1"></i>
             My Tasks
             <div class="collapse" id="sub-menu">
-              <ul>
-                <li routerLink="/features/todo/todo-list" style="font-size: 15px">
+              <ul class="inner-nav nav nav-pills ms-5">
+                <li class="clickable" routerLink="/features/todo/todo-list" style="font-size: 15px">
                   List view
                 </li>
-                <li routerLink="/features/todo/todo-dragdrop" style="font-size: 15px">Drag & drop view</li>
+                <li class="clickable" routerLink="/features/todo/todo-dragdrop" style="font-size: 15px">Drag & Drop view</li>
               </ul>
             </div>
           </li>
-          <li routerLink="create-todo" style="font-size: 18px">
+          <li class="clickable" routerLink="create-todo" style="font-size: 18px">
             <i class="fa-solid fa-plus me-1"></i>
             New Task
           </li>
         </ul>
       </mat-nav-list>
+      </div>
 
+      <div class="sidenav-bottom">
+        <a class="text-decoration-none" href="https://www.papernest.com/contact/">
+          Contact support
+        </a>
+      </div>
     </mat-sidenav>
 
 

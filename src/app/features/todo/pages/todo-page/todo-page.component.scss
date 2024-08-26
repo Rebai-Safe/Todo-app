@@ -29,10 +29,11 @@
   flex: 1 0 auto;
 }
 
-.sidenav{
+.sidenav {
   width: 225px !important;
 }
-.my-container{
+
+.my-container {
   margin: 10px;
 }
 
@@ -65,3 +66,38 @@ ul {
   }
 }
 
+.inner-nav {
+  position: relative;
+}
+
+.inner-nav::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 1px;
+  height: calc(100% - 20px);
+  background-color:  $accent-color;
+}
+
+.sidenav-bottom {
+  position: absolute;
+  bottom: 25px;
+  left: 14%;
+  font-size: 17px;
+  color: $main-color;
+
+}
+
+.sidenav-bottom::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  right: 0;
+  border-top: 1.5px solid $accent-color;
+}
+
+@media (max-width: 767px) {
+
+}

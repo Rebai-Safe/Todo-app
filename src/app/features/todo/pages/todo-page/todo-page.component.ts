@@ -9,6 +9,7 @@ import {MediaMatcher} from "@angular/cdk/layout";
 export class TodoPageComponent implements OnDestroy{
    mobileQuery: MediaQueryList;
   _mobileQueryListener: () => void;
+   todayDate = new Date();
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');

@@ -35,7 +35,8 @@ const material = [
     ConfirmDialogComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    material
   ],
   exports: [material]
 })
