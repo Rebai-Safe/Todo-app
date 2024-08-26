@@ -11,7 +11,7 @@ const _todoReducer = createReducer(
   })),
   on(updateTodo, (state, {todo}) => ({
     ...state,
-    todos: state.todos.map(t => (t.id === todo.id ? todo : t)) // Update the specific todo by ID
+    todos: state.todos.map(t => (t.id === todo.id ? todo : t))
   })),
   on(deleteTodo, (state, {id}) => ({...state, todos: state.todos.filter(t => t.id !== id)})),
 
@@ -32,10 +32,3 @@ export function todoReducer(state: any, action: any) {
   return _todoReducer(state, action);
 }
 
-
-/*
-  on(loadTodos, state => ({ ...state, loading: true })),
-  on(createTodo, (state, {todo}) => ({ ...state, todosList: [...state.todo.todosList, todo] })),
-  on(deleteTodo, (state, {id}) => ({ ...state, todosList: state.todo.todosList.filter(t => t.id !== id) })),
-  on(updateTodo, (state, { todo }) => ({ ...state, todosList: state.todo.todosList.map(t => t.id === todo.id ? todo : t) })),
-  */

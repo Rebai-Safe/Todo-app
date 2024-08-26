@@ -1,16 +1,16 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from "../../../shared/shared.module";
+import {SharedModule} from "../../../../shared/shared.module";
 import {Router, RouterLink} from "@angular/router";
-import {Todo} from "../../../shared/model/todo";
+import {Todo} from "../../../../shared/model/todo";
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmDialogComponent} from "../../../shared/components/confirm-dialog/confirm-dialog.component";
-import {TodoService} from "../../../shared/services/todo.service";
+import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
+import {TodoService} from "../../../../shared/services/todo.service";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import {Store} from "@ngrx/store";
-import {selectTodos} from "../../../core/ngrx/todo.selectors";
-import {deleteTodo} from "../../../core/ngrx/todo.actions";
+import {selectTodos} from "../../../../core/todo-store/todo.selectors";
+import {deleteTodo} from "../../../../core/todo-store/todo.actions";
 
 @Component({
   selector: 'app-todo-list',
@@ -51,7 +51,7 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   }
 
   goToUpdateTodo(element: Todo) {
-    this.router.navigate(['features/update-todo', element.id])
+    this.router.navigate(['/features/todo/update-todo', element.id])
   }
 
   deleteToDo(element: Todo) {

@@ -4,8 +4,12 @@ import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'features',
-    loadChildren: () => import('./features/feature.module').then(m => m.FeaturesModule)
+    path: 'features/todo',
+    loadChildren: () => import('./features/todo/todo.module').then(m => m.TodoModule)
+  }, {
+    path: '',
+    redirectTo: 'features/todo',
+    pathMatch: "full"
   }
 ];
 

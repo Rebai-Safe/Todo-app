@@ -1,19 +1,14 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatButtonModule} from "@angular/material/button";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatOptionModule} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Todo} from "../../../shared/model/todo";
-import {v4 as uuidv4} from "uuid";
-import {SharedModule} from "../../../shared/shared.module";
+import {Todo} from "../../../../shared/model/todo";
+import {SharedModule} from "../../../../shared/shared.module";
 import {Store} from "@ngrx/store";
-import {loadTodoById, updateTodo} from "../../../core/ngrx/todo.actions";
-import {selectTodoById, selectTodos} from "../../../core/ngrx/todo.selectors";
+import {loadTodoById} from "../../../../core/todo-store/todo.actions";
+import {updateTodo} from "../../../../core/todo-store/todo.actions";
+import {selectTodoById} from "../../../../core/todo-store/todo.selectors";
+
 
 @Component({
   selector: 'app-update-todo',
@@ -59,6 +54,6 @@ export class UpdateTodoComponent {
 
   updateTodo() {
     this.store.dispatch(updateTodo({todo: this.todoForm.value}));
-    this.router.navigate(['/features/todo-list'])
+    this.router.navigate(['/features/todo/todo-list'])
   }
 }

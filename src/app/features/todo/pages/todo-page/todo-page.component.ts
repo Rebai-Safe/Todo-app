@@ -1,8 +1,5 @@
 import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
-import {CommonModule } from '@angular/common';
-import {SharedModule} from "../../../shared/shared.module";
 import {MediaMatcher} from "@angular/cdk/layout";
-import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'app-todo-page',

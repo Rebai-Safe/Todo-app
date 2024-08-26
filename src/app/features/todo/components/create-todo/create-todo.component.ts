@@ -1,13 +1,12 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule} from "../../../shared/shared.module";
+import {SharedModule} from "../../../../shared/shared.module";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {v4 as uuidv4} from 'uuid';
-import {Todo} from "../../../shared/model/todo";
-import {TodoService} from "../../../shared/services/todo.service";
+import {TodoService} from "../../../../shared/services/todo.service";
 import {Store} from "@ngrx/store";
-import {createTodo} from "../../../core/ngrx/todo.actions";
+import {createTodo} from "../../../../core/todo-store/todo.actions";
 
 @Component({
   selector: 'app-create-todo',
@@ -39,6 +38,6 @@ export class CreateTodoComponent {
 
   createTodo() {
     this.store.dispatch(createTodo({todo: this.todoForm.value}));
-    this.router.navigate(['features/todo-list'])
+    this.router.navigate(['features/todo/todo-list'])
   }
 }

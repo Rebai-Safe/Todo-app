@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {Todo} from "../../../shared/model/todo";
-import {SharedModule} from "../../../shared/shared.module";
+import {Todo} from "../../../../shared/model/todo";
+import {SharedModule} from "../../../../shared/shared.module";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {TodoService} from "../../../shared/services/todo.service";
-import {ConfirmDialogComponent} from "../../../shared/components/confirm-dialog/confirm-dialog.component";
+import {TodoService} from "../../../../shared/services/todo.service";
+import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
 import {Store} from "@ngrx/store";
-import {selectTodos} from "../../../core/ngrx/todo.selectors";
-import {deleteTodo, updateTodoState} from "../../../core/ngrx/todo.actions";
+import {selectTodos} from "../../../../core/todo-store/todo.selectors";
+import {deleteTodo, updateTodoState} from "../../../../core/todo-store/todo.actions";
 
 @Component({
   selector: 'app-todo-drag-drop',
@@ -88,7 +88,7 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
   }
 
   goToUpdateTodo(element: Todo) {
-    this.router.navigate(['features/update-todo', element.id])
+    this.router.navigate(['features/todo/update-todo', element.id])
   }
 
   deleteToDo(element: Todo) {

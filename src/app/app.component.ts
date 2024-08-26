@@ -1,9 +1,9 @@
 import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {selectTodos} from "./core/ngrx/todo.selectors";
 import {take} from "rxjs";
-import {loadTodos} from "./core/ngrx/todo.actions";
-import {Todo, TodoState} from "./shared/model/todo";
+import {Store} from "@ngrx/store";
+import {selectTodos} from "./core/todo-store/todo.selectors";
+import {loadTodos} from "./core/todo-store/todo.actions";
+import {TodoState} from "./shared/model/todo";
 
 @Component({
   selector: 'app-root',
