@@ -12,10 +12,8 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class TodoService {
 
-  isLoading = false;
-
   constructor(
-    private store: Store,) {
+    private store: Store) {
   }
 
   createTodo(todo: Todo) {

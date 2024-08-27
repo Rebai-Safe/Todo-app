@@ -5,11 +5,8 @@ import {Todo} from "../../../../shared/model/todo";
 import {SharedModule} from "../../../../shared/shared.module";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
-import {Store} from "@ngrx/store";
-import {selectTodos} from "../../../../core/todo-store/todo.selectors";
-import {deleteTodo, updateTodoState} from "../../../../core/todo-store/todo.actions";
 import {TodoService} from "../../services/todo.service";
+
 
 @Component({
   selector: 'app-todo-drag-drop',

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -15,7 +15,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './update-todo.component.html',
   styleUrls: ['./update-todo.component.scss']
 })
-export class UpdateTodoComponent {
+export class UpdateTodoComponent implements OnInit {
 
   todoForm!: FormGroup;
   todo$: any;
@@ -30,6 +30,10 @@ export class UpdateTodoComponent {
     private formBuilder: FormBuilder,
     private todoService: TodoService,
     private activatedRoute: ActivatedRoute) {
+  }
+
+
+  ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id != null) {
       this.todo$ = this.todoService.loadTodoById(id)

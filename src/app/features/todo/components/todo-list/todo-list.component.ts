@@ -32,7 +32,7 @@ export class TodoListComponent implements OnInit, AfterViewInit {
     private router: Router,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private todoService: TodoService) {
+    public todoService: TodoService) {
   }
 
 
@@ -41,7 +41,6 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
     this.loadData();
   }
 
