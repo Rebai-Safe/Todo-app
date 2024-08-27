@@ -1,0 +1,17 @@
+<div *ngIf="tasks.length > 0">
+  <div class="title">
+    <h1>My Tasks at a glance :</h1>
+  </div>
+
+  <div class="chart-box">
+    <canvas class="todo-canvas" baseChart
+            [data]="pieChartData"
+            [type]="'pie'"
+            [options]="pieChartOptions">
+    </canvas>
+  </div>
+</div>
+
+<div *ngIf="tasks.length == 0" class="empty-text">
+  You have no tasks. Consider creating a new one!
+</div>

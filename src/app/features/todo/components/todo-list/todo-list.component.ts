@@ -1,17 +1,14 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from "../../../../shared/shared.module";
 import {Router, RouterLink} from "@angular/router";
 import {Todo} from "../../../../shared/model/todo";
 import {MatDialog} from "@angular/material/dialog";
-import {ConfirmDialogComponent} from "../../../../shared/components/confirm-dialog/confirm-dialog.component";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
-import {Store} from "@ngrx/store";
-import {selectTodos} from "../../../../core/todo-store/todo.selectors";
-import {deleteTodo} from "../../../../core/todo-store/todo.actions";
 import {TodoService} from "../../services/todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-todo-list',
@@ -20,8 +17,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent implements OnInit, AfterViewInit {
+export class TodoListComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  destroy$ = new Subject<void>();
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -45,7 +43,9 @@ export class TodoListComponent implements OnInit, AfterViewInit {
   }
 
   loadData() {
-    this.todoService.loadTodos().subscribe(res => {
+    this.todoService.loadTodos()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
       this.dataSource.data = res.todos;
     })
   }
@@ -75,6 +75,11 @@ export class TodoListComponent implements OnInit, AfterViewInit {
       default:
         return "";
     }
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
 

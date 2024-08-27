@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -6,6 +6,7 @@ import {Todo} from "../../../../shared/model/todo";
 import {SharedModule} from "../../../../shared/shared.module";
 import {TodoService} from "../../services/todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Observable, Subject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -15,11 +16,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './update-todo.component.html',
   styleUrls: ['./update-todo.component.scss']
 })
-export class UpdateTodoComponent implements OnInit {
+export class UpdateTodoComponent implements OnInit, OnDestroy {
 
   todoForm!: FormGroup;
+  // to contain ToDoService response
   todo$: any;
-  tasks: any[] = [];
+  destroy$ = new Subject<void>();
+
   index!: number;
   states = ['Todo', 'InProgress', 'Done', ' Cancelled']
 
@@ -37,7 +40,9 @@ export class UpdateTodoComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id != null) {
       this.todo$ = this.todoService.loadTodoById(id)
-      this.todo$.subscribe((res: Todo) => {
+      this.todo$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: Todo) => {
         this.todoForm = this.formBuilder.group({
           id: [res.id],
           title: [res.title, Validators.required],
@@ -62,5 +67,10 @@ export class UpdateTodoComponent implements OnInit {
     } catch {
       console.error('error updating todo ');
     }
+  }
+
+  ngOnDestroy(){
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

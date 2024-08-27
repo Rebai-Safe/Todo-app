@@ -6,6 +6,7 @@ import {SharedModule} from "../../../../shared/shared.module";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {TodoService} from "../../services/todo.service";
+import {Subject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -17,9 +18,13 @@ import {TodoService} from "../../services/todo.service";
 })
 export class TodoDragDropComponent implements OnInit, OnDestroy {
 
+  // all tasks container
   tasks: Todo[] = [];
 
-  //
+  // to handle observable
+  destroy$ = new Subject<void>();
+
+  // tasks by state
   todo: Todo[] = [];
   inProgress: Todo[] = [];
   done: Todo[] = [];
@@ -72,7 +77,9 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.todoService.loadTodos().subscribe(res => {
+    this.todoService.loadTodos()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
       this.tasks = res.todos;
       if (this.tasks.length > 0) {
         this.todo = this.tasks.filter(task => task.state == "Todo");
@@ -97,8 +104,9 @@ export class TodoDragDropComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-
+  ngOnDestroy(){
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 

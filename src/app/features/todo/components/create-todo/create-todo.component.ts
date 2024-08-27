@@ -4,8 +4,6 @@ import {SharedModule} from "../../../../shared/shared.module";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {v4 as uuidv4} from 'uuid';
-
-import {Store} from "@ngrx/store";
 import {Todo} from "../../../../shared/model/todo";
 import {TodoService} from "../../services/todo.service";
 import {MatSnackBar} from "@angular/material/snack-bar";

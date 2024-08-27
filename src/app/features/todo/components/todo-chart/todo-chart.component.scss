@@ -1,0 +1,22 @@
+.chart-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.todo-canvas {
+  display: block;
+  box-sizing: border-box;
+  height: 500px !important;
+  width: 500px !important;
+}
+
+
+@media (max-width: 512px) {
+  .todo-canvas {
+    height: 300px !important;
+    width: 300px !important;
+  }
+}
+
