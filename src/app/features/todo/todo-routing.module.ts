@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {TodoPageComponent} from "./pages/todo-page/todo-page.component";
+import {TodoChartComponent} from "./components/todo-chart/todo-chart.component";
 
 const routes: Routes = [
   {
@@ -19,9 +20,12 @@ const routes: Routes = [
       }, {
         path: 'todo-dragdrop',
         loadComponent: () => import('./components/todo-drag-drop/todo-drag-drop.component').then((m) => m.TodoDragDropComponent)
+      },{
+        path: 'todo-chart',
+        component: TodoChartComponent
       }, {
         path: '',
-        redirectTo: 'todo-list',
+        redirectTo: 'todo-chart',
         pathMatch: "full"
       },
     ]

@@ -6,6 +6,7 @@ import {selectTodoById, selectTodos} from "../../../core/todo-store/todo.selecto
 import {updateTodo} from "../../../core/todo-store/todo.actions";
 import {ConfirmDialogComponent} from "../../../shared/components/confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class TodoService {
   loadTodoById(id: string) {
     // dispatch action to load the todo by ID
     this.store.dispatch(loadTodoById({id}));
-    return this.store.select(selectTodoById(id));
+    return this.store.select(selectTodoById(id)) ;
   }
 
   updateTodo(todo: Todo) {
